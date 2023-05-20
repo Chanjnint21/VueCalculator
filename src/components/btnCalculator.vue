@@ -25,18 +25,29 @@
             <v-col cols="3"><v-btn>x</v-btn></v-col>
         </v-row>
         <v-row>
-            <v-col cols="3"><v-btn color="red" v-on:click="reset">C</v-btn></v-col>
+            <v-col cols="3"><v-btn :style="{ backgroundColor: Rcolor }" v-on:click="reset">C</v-btn></v-col>
             <v-col cols="3"><v-btn>0</v-btn></v-col>
-            <v-col cols="3"><v-btn color="green" v-on:click="Equals">=</v-btn></v-col>
+            <v-col cols="3"><v-btn :style="{ backgroundColor: Ecolor }" v-on:click="Equals">=</v-btn></v-col>
             <v-col cols="3"><v-btn>/</v-btn></v-col>
         </v-row>
     </v-container>
 </template>
 
 <script>
+import Ans from './WatchValue.js'
 
 export default{
-
+    name: 'BtnCalculator',
+    props: {
+        Rcolor:{
+            type: String,
+            required: true
+        },
+        Ecolor:{
+            type: String,
+            required: true
+        },
+    },
     data(){
         return{
             Value: '',
@@ -46,12 +57,7 @@ export default{
         }
     },
     watch:{
-        Ans(newVal, oldVal){
-            if(isNaN(newVal)){
-                console.log(oldVal)
-                return this.showAlert = true;
-            }
-        }
+        Ans: Ans
     },
     methods:{
         reset: function(){

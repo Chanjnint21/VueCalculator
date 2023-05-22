@@ -9,21 +9,21 @@
     </v-app-bar>
     <v-main>
       <VueCalculator :Rcolor="btnreset" :Ecolor="btnequal"></VueCalculator>
-      <btnCalculator :Rcolor="btnreset" :Ecolor="btnequal"></btnCalculator>
+      <!-- <btnCalculator :Rcolor="btnreset" :Ecolor="btnequal"></btnCalculator> -->
     </v-main>
   </v-app>
 </template>
 
 <script>
 import VueCalculator from './components/VueCalculator.vue';
-import btnCalculator from './components/btnCalculator.vue';
+//import btnCalculator from './components/btnCalculator.vue';
 
 export default {
   name: 'App',
 
   components: {
     VueCalculator,
-    btnCalculator
+    //btnCalculator
   },
 
   data() {

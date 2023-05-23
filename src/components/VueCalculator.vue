@@ -1,18 +1,19 @@
 <template>
     <v-container class=" area-calculator bg-surface-variant">
         <v-row>
-            <v-col><v-alert text danse outlined type="warning" v-if="showAlert" :value="showAlert" @input="showAlert = false" >Value that are not number will case the error in calculating !</v-alert></v-col>
-            <v-col cols="12"><v-text-field type="text" label="1st Value" variant="solo" v-model="Value1"></v-text-field></v-col>
-            <v-col cols="12"><v-text-field type="text" label="2nd Value" variant="solo" v-model="Value2"></v-text-field></v-col>
-            <!-- <input type="text" :value="value" @input="$emit('input', $event.target.value)" /> -->
-            <v-col><v-text-field label="=" variant="solo" v-model="Ans" model-value="0" readonly ></v-text-field></v-col>
+            <v-col cols="12"><v-alert text danse outlined type="warning" v-if="showAlert" :value="showAlert" @input="showAlert = false" >Value that are not number will case the error in calculating !</v-alert></v-col>
+            <v-col class="mt-5" cols="5"><v-text-field type="text" label="1st Value" v-model="Value1" outlined></v-text-field></v-col>
+            <v-col class="d-flex align-center justify-center"><p v-html="method"></p></v-col>
+            <v-col class="mt-5" cols="5"><v-text-field type="text" label="2nd Value" v-model="Value2" outlined></v-text-field></v-col>
+            <v-col cols="12"><v-text-field label="=" variant="solo" :value="Ans" model-value="0" readonly ></v-text-field></v-col>
         </v-row>
         <v-row class="text-center">
-            <v-col cols="2"><v-btn   @click="ADD"> + </v-btn></v-col>
-            <v-col cols="2"><v-btn  @click="SUB"> - </v-btn></v-col>
+            <!-- <v-form v-model="isFormValid"></v-form> -->
+            <v-col cols="2"><v-btn @click="ADD" :disabled="!isFormValid"> + </v-btn></v-col>
+            <v-col cols="2"><v-btn @click="SUB"> - </v-btn></v-col>
             <v-col cols="2"><v-btn @click="MULTI"> &times; </v-btn></v-col>
             <v-col cols="2"><v-btn @click="DEV"> &divide; </v-btn></v-col>
-            <v-col cols="4"><v-btn :style="{ backgroundColor: Rcolor }" v-on:click="reset" block>C</v-btn></v-col>
+            <v-col cols="4"><v-btn :color="Rcolor" v-on:click="reset" block>C</v-btn></v-col>
         </v-row>
     </v-container>
 </template>
@@ -24,18 +25,24 @@ export default{
     props: {
         Rcolor:{
             type: String,
-            required: true
-        }
+            default: 'warning',
+        }, 
+        // method:{
+        //     type: String,
+        //     default: "...."
+        // }
     },
     data(){
         return{
             Value1: '',
             Value2: '',
             showAlert: '',
+            method: '....',
             add: false,
             sub: false,
             multi: false,
-            dev: false
+            dev: false,
+            isFormValid: ''
         }
     },
     watch:{
@@ -58,29 +65,33 @@ export default{
             }else if( this.dev){
                 return V1 / V2;
             }
-            return 0;
-        }
+            return "";
+        },
     },
     methods:{
         reset: function(){
+            this.method = '....'
            this.Value1='';
            this.Value2='';
            this.add = this.sub = this.multi = this.dev = false;
-           this.Ans= ''
         },
         ADD: function(){
+            this.method="+"
             this.add = true;
             this.sub = this.multi = this.dev = false;
         },
         SUB: function(){
+            this.method="-"
             this.sub = true;
             this.add = this.multi = this.dev = false;
         },
         MULTI: function(){
+            this.method= "&times;"
             this.multi = true;
             this.sub = this.add = this.dev = false;
         },
         DEV: function(){
+            this.method= "&divide;"
             this.dev = true;
             this.sub = this.multi = this.add = false;
         },

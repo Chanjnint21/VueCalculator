@@ -8,8 +8,8 @@
     <h2>VueCalculator</h2>
     </v-app-bar>
     <v-main>
-      <VueCalculator :Rcolor="btnreset" :Ecolor="btnequal"></VueCalculator>
-      <!-- <btnCalculator :Rcolor="btnreset" :Ecolor="btnequal"></btnCalculator> -->
+      <VueCalculator Rcolor="error" ></VueCalculator>
+      <!-- <btnCalculator Rcolor="warning" Ecolor="success"></btnCalculator> -->
     </v-main>
   </v-app>
 </template>
@@ -25,12 +25,5 @@ export default {
     VueCalculator,
     //btnCalculator
   },
-
-  data() {
-    return{
-      btnreset: 'red',
-      btnequal: 'green',
-    }
-  }
 };
 </script>

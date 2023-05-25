@@ -15,7 +15,6 @@
 </template>
 
 <script>
-// import './assets/styles.css'
 import VueCalculator from './components/VueCalculator.vue';
 //import btnCalculator from './components/btnCalculator.vue';
 

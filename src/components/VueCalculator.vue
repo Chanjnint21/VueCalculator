@@ -12,6 +12,7 @@
                 </v-col>
                 <v-col class="mt-5" cols="5"><v-text-field type="text" color="green" label="2nd Value" v-model="Value2"
                         outlined></v-text-field></v-col>
+                <v-col class="d-flex align-center justify-center mb-2" ><CalHistory :history="history"></CalHistory></v-col>        
                 <v-col cols="12"><v-text-field label="=" color="green" variant="solo" :value="Ans"
                         readonly></v-text-field></v-col>
             </v-row>
@@ -28,7 +29,9 @@
 
 <script>
 import '../assets/styles.css'
-import { Value1, Value2 } from './WatchValue.js'
+import { WatchValue1, WatchValue2, Switch } from './property/Watcher.js'
+import { showAlert, isBtnValid } from './property/Computed.js'
+import CalHistory from './CalHistory.vue'
 
 export default {
     props: {
@@ -40,110 +43,93 @@ export default {
             type: Boolean
         }
     },
+    components:{
+        CalHistory
+    },
     data() {
         return {
             Value1: '',
             Value2: '',
-            showAlert: '',
+            V1Alert: '',
+            V2Alert: '',
             method: '....',
-            add: false,
-            sub: false,
-            multi: false,
-            dev: false,
+            Ans: '',
+            //add: false,
+            //sub: false,
+            //multi: false,
+            //dev: false,
             MainID: '',
-            ContainerID: ''
+            ContainerID: '',
+            history: []
         }
     },
     watch: {
-        Value1: Value1,
-        Value2: Value2,
-        Switch() {
-            if (this.Switch) {
-                this.MainID = 'MainID';
-                this.ContainerID = 'ContainerID'
-            }
-            else {
-                this.MainID = ''
-                this.ContainerID = ''
-            }
-        }
+        Value1: WatchValue1,
+        Value2: WatchValue2,
+        Switch: Switch
     },
     computed: {
-        Ans() {
-            //convert the inp value to number 
-            let V1 = Number(this.Value1)
-            let V2 = Number(this.Value2)
-
-            //check operation condition
-            if (this.add) {
-                return V1 + V2;
-            } else if (this.sub) {
-                return V1 - V2;
-            } else if (this.multi) {
-                return V1 * V2;
-            } else if (this.dev) {
-                return V1 / V2;
-            }
-            return "";
-        },
-        isBtnValid() {
-            if (this.Value1 === '' || this.Value2 === '') {
-                return 0
-            }
-            return 1
-        }
+        //Ans: Ans,
+        showAlert: showAlert,
+        isBtnValid: isBtnValid,
     },
     methods: {
         reset: function () {
             this.method = '....'
             this.Value1 = '';
             this.Value2 = '';
-            this.add = this.sub = this.multi = this.dev = false;
+            this.Ans = ''
+            //this.add = this.sub = this.multi = this.dev = false;
         },
-        ADD: function () {
+        ToHistory(meth){
+            this.history.push(`${this.Value1} ${meth} ${this.Value1} = ${this.Ans}`)
+        },
+        ADD: function(){
             this.method = "+"
-            this.add = true;
-            this.sub = this.multi = this.dev = false;
+            const sum = Number(this.Value1) + Number(this.Value2)
+            this.Ans = sum;
+            this.ToHistory('+')
         },
-        SUB: function () {
+        SUB: function(){
             this.method = "-"
-            this.sub = true;
-            this.add = this.multi = this.dev = false;
+            const sum = Number(this.Value1) - Number(this.Value2)
+            this.Ans = sum;
+            this.ToHistory('-')
         },
-        MULTI: function () {
+        MULTI: function(){
             this.method = "&times;"
-            this.multi = true;
-            this.sub = this.add = this.dev = false;
+            const sum = Number(this.Value1) * Number(this.Value2)
+            this.Ans = sum;
+            this.ToHistory('&times;')
         },
-        DEV: function () {
+        DEV: function(){
             this.method = "&divide;"
-            this.dev = true;
-            this.sub = this.multi = this.add = false;
+            const sum = Number(this.Value1) / Number(this.Value2)
+            this.Ans = sum;
+            this.ToHistory('&divide;')
         },
 
-        // ADD: function(){
-        //     const sum = Number(this.Value1) * Number(this.Value2)
-        //     this.Ans = sum;
+        //---------------------when use computed--------------------
+        // ADD: function () {
+        //     this.method = "+"
+        //     this.add = true;
+        //     this.sub = this.multi = this.dev = false;
         // },
-        // SUB: function(){
-        //     const sum = Number(this.Value1) / Number(this.Value2)
-        //     this.Ans = sum;
+        // SUB: function () {
+        //     this.method = "-"
+        //     this.sub = true;
+        //     this.add = this.multi = this.dev = false;
         // },
-        // MULTI: function(){
-        //     const sum = Number(this.Value1) * Number(this.Value2)
-        //     this.Ans = sum;
+        // MULTI: function () {
+        //     this.method = "&times;"
+        //     this.multi = true;
+        //     this.sub = this.add = this.dev = false;
         // },
-        // DEV: function(){
-        //     const sum = Number(this.Value1) / Number(this.Value2)
-        //     this.Ans = sum;
+        // DEV: function () {
+        //     this.method = "&divide;"
+        //     this.dev = true;
+        //     this.sub = this.multi = this.add = false;
         // },
-    }
+    },
 }
 </script>
-
-<style>
-/* .area-calculator {
-    width: 700px;
-    height: 400px;
-} */
-</style>

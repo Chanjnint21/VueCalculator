@@ -87,7 +87,7 @@ export default {
         },
         // check if the text field of value 1 or 2 empty disable button
         isBtnValid() {
-            return this.Value1 === '' || this.Value2 === ''
+            return this.Value1 !== '' && this.Value2 !== ''
         },
     },
     methods: {

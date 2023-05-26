@@ -9,6 +9,7 @@
         <v-switch v-model="Switch" inset :label="mode"></v-switch>
       </div>
     </v-app-bar>
+    //
     <VueCalculator Rcolor="error" :Switch="Switch"></VueCalculator>
     <!-- <btnCalculator Rcolor="warning" Ecolor="success"></btnCalculator> -->
   </v-app>

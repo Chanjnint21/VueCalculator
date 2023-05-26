@@ -11,6 +11,7 @@
                     <span class="text-h5">History</span>
                 </v-card-title>
                 <v-card-text>
+                    <!-- list to display history -->
                     <ul class="HistoryList">
                         <li v-for="his in history" :key="his" v-html="his">
                         </li>
@@ -18,6 +19,7 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
+                    <!-- btn to close history dialog -->
                     <v-btn color="green darken-1" text @click="dialog = false">
                         Close
                     </v-btn>

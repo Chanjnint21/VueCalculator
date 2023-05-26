@@ -32,13 +32,11 @@ import '../assets/styles.css'
 
 export default {
     name: 'CalHistory',
-
     props: {
         history: {
             type: Array
         }
     },
-
     data() {
         return {
             dialog: false

@@ -9,22 +9,22 @@
         <v-switch v-model="Switch" inset :label="mode"></v-switch>
       </div>
     </v-app-bar>
-    //
-    <VueCalculator Rcolor="error" :Switch="Switch"></VueCalculator>
-    <!-- <btnCalculator Rcolor="warning" Ecolor="success"></btnCalculator> -->
+    <!-- <VueCalculator Rcolor="error" :Switch="Switch"></VueCalculator> -->
+    <cal-page :Switch="Switch"/>
   </v-app>
 </template>
 
 <script>
-import VueCalculator from './components/VueCalculator.vue';
-//import btnCalculator from './components/btnCalculator.vue';
+// import VueCalculator from './components/VueCalculator.vue';
+import CalPage from './views/CalPage.vue';
 
 export default {
   name: 'App',
 
   components: {
-    VueCalculator,
-    //btnCalculator
+    // VueCalculator,
+    CalPage
+
   },
   data() {
     return {

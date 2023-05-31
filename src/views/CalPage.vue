@@ -4,7 +4,7 @@
 			<v-row>
 
 				<!-- value input 1-->
-				<v-col class="mt-5" cols="5"><text-files v-model="Value1" hinttext="Input must be number" textlabel="1st Value" textcolor="success" outlined/></v-col>
+				<v-col class="mt-5" cols="5"><text-files v-model="Value1" hinttext="Input must be number" textlabel="1st Value" textcolor="success" :rules="[rulesNumber]" outlined/></v-col>
 
 				<!-- display the method -->
 				<v-col class="d-flex align-center justify-center">
@@ -12,7 +12,7 @@
 				</v-col>
 
 				<!-- value input 2-->
-				<v-col class="mt-5" cols="5"><text-files v-model="Value2" hinttext="Input must be number" textlabel="2nd Value" textcolor="success" outlined/></v-col>
+				<v-col class="mt-5" cols="5"><text-files v-model="Value2" hinttext="Input must be number" textlabel="2nd Value" textcolor="success" :rules="[rulesNumber]" outlined/></v-col>
 
 				<!-- icon click for histor -->
 				<v-col class="d-flex align-center justify-center mb-2">
@@ -20,7 +20,7 @@
 				</v-col>
 
 				<!-- Result (readonly text field) -->
-				<v-col cols="12"><text-files :value="Ans"  textlabel="=" textcolor="success" readonly/>
+				<v-col cols="12"><text-files :value="Ans" hinttext="A field for display value (read only)"  textlabel="=" textcolor="success" readonly/>
 				</v-col>
 			</v-row>
 			<!-- method btns and clear btn -->
@@ -61,6 +61,11 @@ export default {
 			MainID: '',
 			ContainerID: '',
 			history: [],
+			rulesNumber: v => {
+        if (!v.trim()) return true;
+        if (!isNaN(v)) return true;
+        return 'The Input must be in number !!!';
+      },
 		}
 	},
 	watch: {

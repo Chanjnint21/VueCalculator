@@ -4,7 +4,8 @@
 			<v-row>
 
 				<!-- value input 1-->
-				<v-col class="mt-5" cols="5"><text-files v-model="Value1" hinttext="Input must be number" textlabel="1st Value" textcolor="success" :rules="[rulesNumber]" outlined/></v-col>
+				<v-col class="mt-5" cols="5"><text-files v-model="Value1" hinttext="Input must be number" textlabel="1st Value"
+						textcolor="success" :rules="[rulesNumber]" outlined /></v-col>
 
 				<!-- display the method -->
 				<v-col class="d-flex align-center justify-center">
@@ -12,25 +13,27 @@
 				</v-col>
 
 				<!-- value input 2-->
-				<v-col class="mt-5" cols="5"><text-files v-model="Value2" hinttext="Input must be number" textlabel="2nd Value" textcolor="success" :rules="[rulesNumber]" outlined/></v-col>
+				<v-col class="mt-5" cols="5"><text-files v-model="Value2" hinttext="Input must be number" textlabel="2nd Value"
+						textcolor="success" :rules="[rulesNumber]" outlined /></v-col>
 
 				<!-- icon click for histor -->
 				<v-col class="d-flex align-center justify-center mb-2">
-					<CalHistory :history="history"/>
+					<CalHistory :history="history" :counts="counts" />
 				</v-col>
 
 				<!-- Result (readonly text field) -->
-				<v-col cols="12"><text-files :value="Ans" hinttext="A field for display value (read only)"  textlabel="=" textcolor="success" readonly/>
+				<v-col cols="12"><text-files :value="Ans" hinttext="A field for display value (read only)" textlabel="="
+						textcolor="success" readonly />
 				</v-col>
 			</v-row>
 			<!-- method btns and clear btn -->
-			<v-row >
-				<v-col cols="2"><btn-component @click="ADD" CalMethod="+" outlined/></v-col>
-				<v-col cols="2"><btn-component @click="SUB" CalMethod="-" outlined/></v-col>
-				<v-col cols="2"><btn-component @click="MULTI" CalMethod="&times;" outlined/></v-col>
-				<v-col cols="2"><btn-component @click="DEV" CalMethod="&divide;" outlined/></v-col>
-				<v-col cols="2"><btn-component @click="reset" btncolor='error' CalMethod="C"/></v-col>
-				<v-col cols="2"><btn-component @click="FloatParse" btncolor="success" CalMethod=".00"/></v-col>
+			<v-row>
+				<v-col cols="2"><btn-component @click="ADD" CalMethod="+" :disabled="!isBtnValid" outlined /></v-col>
+				<v-col cols="2"><btn-component @click="SUB" CalMethod="-" :disabled="!isBtnValid" outlined /></v-col>
+				<v-col cols="2"><btn-component @click="MULTI" CalMethod="&times;" :disabled="!isBtnValid" outlined /></v-col>
+				<v-col cols="2"><btn-component @click="DEV" CalMethod="&divide;" :disabled="!isBtnValid" outlined /></v-col>
+				<v-col cols="2"><btn-component @click="reset" btncolor='error' CalMethod="C" /></v-col>
+				<v-col cols="2"><btn-component @click="FloatParse" btncolor="success" CalMethod=".00" /></v-col>
 			</v-row>
 		</v-container>
 	</v-main>
@@ -43,7 +46,7 @@ import BtnComponent from '../components/BtnComponent.vue';
 
 export default {
 	name: 'CalPage',
-	components:{
+	components: {
 		TextFiles,
 		BtnComponent,
 	},
@@ -62,10 +65,10 @@ export default {
 			ContainerID: '',
 			history: [],
 			rulesNumber: v => {
-        if (!v.trim()) return true;
-        if (!isNaN(v)) return true;
-        return 'The Input must be in number !!!';
-      },
+				if (!v.trim()) return true;
+				if (!isNaN(v)) return true;
+				return 'Input might contain string or special character';
+			},
 		}
 	},
 	watch: {

@@ -11,7 +11,5 @@ export default{
       default: 'primary'
     }
   },
-  
-
 }
 </script>
